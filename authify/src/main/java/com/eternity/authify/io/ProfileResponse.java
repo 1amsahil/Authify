@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ProfileResponse {
 
-    private long userId;
+    private String userId;
     private String name;
     private String email;
     private Boolean isAccountVerified;

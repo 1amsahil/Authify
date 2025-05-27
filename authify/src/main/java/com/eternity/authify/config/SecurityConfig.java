@@ -36,7 +36,7 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests( request -> request
-                        .requestMatchers("/login","/register","send-reset-otp","/rest-password","/logout")
+                        .requestMatchers("/login","/account/register","send-reset-otp","/rest-password","/logout")
                         .permitAll().anyRequest().authenticated())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -74,7 +74,4 @@ public class SecurityConfig {
 
         return new ProviderManager(provider);
     }
-
-
-
 }

@@ -7,6 +7,7 @@ import com.eternity.authify.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -18,6 +19,9 @@ public class ProfileService {
 
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public ProfileResponse createProfile(ProfileRequest request)
     {
@@ -38,7 +42,7 @@ public class ProfileService {
                 .email(request.getEmail())
                 .userId(UUID.randomUUID().toString())
                 .name(request.getName())
-                .password(request.getPassword())
+                .password(passwordEncoder.encode(request.getPassword()))
                 .isAccountVerified(false)
                 .verifyOtp(null)
                 .verifyOtpExpireAt(0L)
@@ -53,7 +57,7 @@ public class ProfileService {
                 .builder()
                 .name(newProfile.getName())
                 .email(newProfile.getEmail())
-                .userId(newProfile.getId())
+                .userId(newProfile.getUserId())
                 .isAccountVerified(newProfile.getIsAccountVerified())
                 .build();
     }
